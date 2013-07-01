@@ -1,0 +1,5 @@
+demo/
+manage.py
+*.pyc
+*.py~
+tester/
