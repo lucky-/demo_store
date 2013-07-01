@@ -3,3 +3,4 @@ manage.py
 *.pyc
 *.py~
 tester/
+sampledata/
