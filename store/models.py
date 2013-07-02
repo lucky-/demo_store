@@ -22,6 +22,7 @@ class items(models.Model):
 
 
 class orders(models.Model):
+	paid = models.BooleanField()
 	date = models.DateTimeField()
 	merchant = models.ForeignKey(Group)
 	items = models.ManyToManyField(items)

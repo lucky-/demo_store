@@ -2,6 +2,7 @@ from django.contrib import admin
 from store import models
 from django import forms
 from django.contrib.auth.models import Group
+from django.db.models import Q
 
 
 
@@ -37,6 +38,6 @@ class ordersAdmin(admin.ModelAdmin):
 		local_set = super(ordersAdmin, self).queryset(request)
 		if request.user.is_superuser:
 		    return local_set
-		return local_set.filter(merchant=request.user.groups.all()[0])
+		return local_set.filter(Q(merchant=request.user.groups.all()[0]) & Q(paid=True))
 admin.site.register(models.orders, ordersAdmin)
 
