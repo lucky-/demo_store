@@ -3,6 +3,11 @@
 {%block title%}Item Details{% endblock%}
 
 {%block inner_head%}
+<script>
+function addcart(x){
+$.get('{%url "store.views.ajaxadd"%}',{item_pk:x}, function(data){alert(data[0])})
+}
+</script>
 
 
 {% endblock %}
@@ -13,7 +18,7 @@
 		<img src="{{item.picture.url}}" style="height:400px; width:400px"><br/>
 		<p>{{item.description}}</p>
 		<h3>Price : ${{item.price}}
-		<button type="button" onlick="addcart({{item.pk}})">Add to cart</button>
+		<button type="button" onclick="addcart({{item.pk}})">Add to cart</button>
 
 		</div>
 
