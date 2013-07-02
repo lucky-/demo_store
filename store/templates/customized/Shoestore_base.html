@@ -9,7 +9,9 @@
 {%block outer_body %}
 <body>
 	<div id="header">
-		<span class="logo">{%block title%}{% endblock %}</span>																																																											<div class="inner_copy"><a href="http://www.greatdirectories.org/blog.html">blog directories</a><a href="http://www.bestfreetemplates.org/categories/blog/">blog templates</a></div>
+		<span class="logo">{%block title%}{% endblock %}</span>
+	{% include 'store/cartdiv.html' %}
+																																																									<div class="inner_copy"><a href="http://www.greatdirectories.org/blog.html">blog directories</a><a href="http://www.bestfreetemplates.org/categories/blog/">blog templates</a></div>
 		<ul id="menu">
 			<li><a href="index.html"><img src="{{ STATIC_URL }}Shoestore/images/but1.gif" alt="" width="64" height="42" /></a></li>
 			<li><a href="index2.html"><img src="{{ STATIC_URL }}Shoestore/images/but2.gif" alt="" width="108" height="42" /></a></li>
