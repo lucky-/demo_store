@@ -7,8 +7,8 @@
 	{% for item in for_sale %}
 		<div>
 		<h2>{{item.name}}</h2>
-		<img src="{{item.picture.url}}"><br/>
-		<a href="">View Details</a>
+		<img src="{{item.picture.url}}" style="height:400px; width:400px"><br/>
+		<a href="{% url 'store.views.item' merchant=merchant item_id=item.pk  %}">View Details</a>
 
 		</div>
 

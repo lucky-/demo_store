@@ -1,0 +1,20 @@
+{% extends merchant_base %}
+
+{%block title%}Item Details{% endblock%}
+
+{%block inner_head%}
+
+
+{% endblock %}
+
+{%block inner_body%}
+		<div>
+		<h2>{{item.name}}</h2>
+		<img src="{{item.picture.url}}" style="height:400px; width:400px"><br/>
+		<p>{{item.description}}</p>
+		<h3>Price : ${{item.price}}
+		<button type="button" onlick="addcart({{item.pk}})">Add to cart</button>
+
+		</div>
+
+{%endblock %}
