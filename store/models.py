@@ -4,15 +4,7 @@ from django.contrib.auth.models import Group, User
 
 # Create your models here.
 
-class buyer_data(models.Model):
-	user = models.ForeignKey(User)
-	name = models.CharField(max_length=50)
-	address = models.CharField(max_length=100)
-	city = models.CharField(max_length=30)
-	state = models.CharField(max_length = 30)
-	zip_code=models.CharField(max_length=30)
-	phone = models.CharField(max_length=30)
-	email = models.EmailField()
+
 
 
 
@@ -32,7 +24,6 @@ class items(models.Model):
 class orders(models.Model):
 	date = models.DateTimeField()
 	merchant = models.ForeignKey(Group)
-	buyer = models.ForeignKey(buyer_data)
 	items = models.ManyToManyField(items)
 	total = models.DecimalField(max_digits=8, decimal_places=2)
 	shipped = models.BooleanField()
@@ -42,7 +33,16 @@ class orders(models.Model):
 		return self.date.strftime('%Y-%m-%d') + '_shipped=' + str(self.shipped)
 
 
-
+class buyer_data(models.Model):
+	user = models.ForeignKey(User)
+	name = models.CharField(max_length=50)
+	address = models.CharField(max_length=100)
+	city = models.CharField(max_length=30)
+	state = models.CharField(max_length = 30)
+	zip_code=models.CharField(max_length=30)
+	phone = models.CharField(max_length=30)
+	email = models.EmailField()
+	orders = models.ForeignKey(orders)
 
 
 
