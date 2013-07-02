@@ -38,6 +38,8 @@ class orders(models.Model):
 	shipped = models.BooleanField()
 	ship_date = models.DateTimeField()
 	tracking = models.CharField(max_length=50, default='-none-')
+	def __unicode__(self):
+		return self.date.strftime('%Y-%m-%d') + '_shipped=' + str(self.shipped)
 
 
 
