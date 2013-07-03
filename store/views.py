@@ -15,7 +15,7 @@ import datetime
 from django.core.urlresolvers import reverse
 
 
-def store_front(request,merchant):
+def store_front(request, merchant):
 	request.session['merchant']=merchant
 	for_sale = models.items.objects.filter(Q(merchant__name__exact = merchant) & ~Q(stock=0))
 	if 'cart' in request.session.keys():
@@ -27,7 +27,7 @@ def store_front(request,merchant):
 
 def error_page(request):
 	merchant = request.session['merchant']
-	return render_to_response('store/error_page.html', dict(e_message=request.session['e_message'], merchant_base = 'customized/{0}_base.html'.format(merchant)), context_instance=RequestContext(request))
+	return render_to_response('store/error_page.html', dict(e_message=request.session['e_message'], merchant_base = 'customized/{0}_base.html'.format(merchant), merchant=merchant), context_instance=RequestContext(request))
 
 
 def item(request, item_id):
@@ -122,7 +122,7 @@ def cart2(request):
 	if request.method=='POST':
 		pass
 	else:
-		return render_to_response('store/cart2.html', dict(order=request.session['the_order'], buyer=request.session['buyer'], merchant_base = 'customized/{0}_base.html'.format(merchant)), context_instance=RequestContext(request))
+		return render_to_response('store/cart2.html', dict(merchant=merchant, order=request.session['the_order'], buyer=request.session['buyer'], merchant_base = 'customized/{0}_base.html'.format(merchant)), context_instance=RequestContext(request))
 
 
 
