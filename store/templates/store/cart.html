@@ -52,7 +52,7 @@ $('#loginform').show();
 		<h3>Login</h3>
 			<button type="button" id="loginshow" onclick="loginshow()">Click Here</button>
 			<form id="loginform" style="display:none" method="post" action="{% url 'store.views.shoppingcart' %}">
-				<input type="hidden" name="action" value="login">
+				<input type="hidden" name="post_method" value="login">
 				Username:<input name="username" type="text"><br />
 				Password:<input name="ps" type="password"><br />
 				<input  type="submit" value="submit">
@@ -60,7 +60,7 @@ $('#loginform').show();
 		<h3> or create an account </h3>
 			<button type="button" id="createshow" onclick="createshow()">Click Here</button>
 			<form method="post" id="createform" style="display:none" action="{% url 'store.views.shoppingcart' %}">
-				<input type="hidden" name="action" value="create">
+				<input type="hidden" name="post_method" value="create">
 				Please choose a: <br />
 				Username:<input name="username" type="text"><br />
 				Password:<input name="ps" type="password"><br />

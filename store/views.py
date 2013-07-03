@@ -50,13 +50,13 @@ def ajaxadd(request):
 def shoppingcart(request):
 	merchant = request.session['merchant']
 	#check if order has already been created
-	if 'the_order' in requeest.session.keys():
-		
+	if 'the_order' in request.session.keys():
+		pass
 	if request.method=='POST':
 		
-		the_order = models.order(paid=False, date = datetime.datetime.now(), merchant =Group.objects.get(name=merchant), 
+		the_order = models.order(paid=False, date = datetime.datetime.now(), merchant =Group.objects.get(name=merchant),) 
 		
-		if request.POST['method']=='login':
+		if request.POST['post_method']=='login':
 			user = authenticate(username=request.POST['username'], password=request.POST['pw'])
 			if user is not None:
 				buyer = models.buyer_data.objects.get(user=user)
@@ -68,7 +68,7 @@ def shoppingcart(request):
 				user = 	User.objects.create_user(request.POST['username'], '', request.POST['pw'])
 				user.save()
 			except Exception, e:
-				 e_message = 'User name error.  Please try a new name.'
+				e_message = 'User name error.  Please try a new name.'
 				return 	redirect('store.views.error_page', e_message )
 			data_fields = ['name', 'address', 'city', 'state', 'zip_code', 'phone', 'email']
 			keys = request.POST.keys()
@@ -80,7 +80,7 @@ def shoppingcart(request):
 				kwargs[field] = request.POST[field]
 			buyer = models.buyer_data(**kwargs) 
 			buyer.save()
-		return something.
+		return something.s
 	
 	else:
 		items = request.session['cart']
