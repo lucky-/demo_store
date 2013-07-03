@@ -8,7 +8,10 @@ from django.http import HttpResponse
 import json
 from django.shortcuts import redirect
 from django.contrib.auth.models import Group
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from decimal import *
+import datetime
 
 
 def store_front(request,merchant):
@@ -33,27 +36,62 @@ def item(request, item_id):
 
 def ajaxadd(request):
 	pk = int(request.GET['item_pk'])
+	item = models.items.objects.get(pk=pk)
 	if 'cart' in request.session.keys():
 		cart = request.session['cart']
-		if pk not in cart:
-			cart.append(pk)
+		if item not in cart:
+			cart.append(item)
 			request.session['cart'] = cart
 	else:
-		request.session['cart'] = [pk]
+		request.session['cart'] = [item]
 	return HttpResponse(json.dumps(('success',len(request.session['cart']))), content_type="application/json")
 
 
 def shoppingcart(request):
 	merchant = request.session['merchant']
-	items = models.items.objects.filter(pk__in=request.session['cart'])
-	shipping = Group.objects.get(name=merchant).base_shipping
-	base_price = Decimal(0)
-	for item in items:
-		shipping += item.m_shipping
-		base_price += item.price
-	total = shipping + base_price
-	request.session['total']=total
-	return render_to_response('store/cart.html', dict(items=items, merchant_base = 'customized/{0}_base.html'.format(merchant), merchant=merchant, shipping = shipping, base_price = base_price, total=total), context_instance=RequestContext(request))
+	#check if order has already been created
+	if 'the_order' in requeest.session.keys():
+		
+	if request.method=='POST':
+		
+		the_order = models.order(paid=False, date = datetime.datetime.now(), merchant =Group.objects.get(name=merchant), 
+		
+		if request.POST['method']=='login':
+			user = authenticate(username=request.POST['username'], password=request.POST['pw'])
+			if user is not None:
+				buyer = models.buyer_data.objects.get(user=user)
+			else:	
+				e_message = 'Incorrect user name or password'
+				return 	redirect('store.views.error_page', e_message )
+		else:
+			try:
+				user = 	User.objects.create_user(request.POST['username'], '', request.POST['pw'])
+				user.save()
+			except Exception, e:
+				 e_message = 'User name error.  Please try a new name.'
+				return 	redirect('store.views.error_page', e_message )
+			data_fields = ['name', 'address', 'city', 'state', 'zip_code', 'phone', 'email']
+			keys = request.POST.keys()
+			kwargs = dict(user=user, orders=the_order)
+			for field in data_fields:
+				if field not in keys:
+					e_message = 'You failed to fill in the "{0}" field'.format(field)
+					return redirect('store.views.error_page', e_message )
+				kwargs[field] = request.POST[field]
+			buyer = models.buyer_data(**kwargs) 
+			buyer.save()
+		return something.
+	
+	else:
+		items = request.session['cart']
+		shipping = Group.objects.get(name=merchant).base_shipping
+		base_price = Decimal(0)
+		for item in items:
+			shipping += item.m_shipping
+			base_price += item.price
+		total = shipping + base_price
+		request.session['total']=total
+		return render_to_response('store/cart.html', dict(items=items, merchant_base = 'customized/{0}_base.html'.format(merchant), merchant=merchant, shipping = shipping, base_price = base_price, total=total), context_instance=RequestContext(request))
 
 
 def clearcart(request):

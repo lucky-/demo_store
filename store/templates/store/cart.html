@@ -14,7 +14,17 @@ function cart_clear(){
 window.location = '{% url 'store.views.clearcart' %}'
 }
 </script>
+<script>
+function createshow(){
+$('#createshow').hide();
+$('#createform').show();
+}
 
+function loginshow(){
+$('#loginshow').hide();
+$('#loginform').show();
+}
+</script>
 
 {% endblock %}
 
@@ -39,7 +49,32 @@ window.location = '{% url 'store.views.clearcart' %}'
 		<button onclick="show_form()">Buy Now</button> <button onclick="cart_clear()">Clear Cart</button>
 		</div>
 		<div class="stage2" style="display:none">
-		<h1>Hello</h1>
+		<h3>Login</h3>
+			<button type="button" id="loginshow" onclick="loginshow()">Click Here</button>
+			<form id="loginform" style="display:none" method="post" action="{% url 'store.views.shoppingcart' %}">
+				<input type="hidden" name="action" value="login">
+				Username:<input name="username" type="text"><br />
+				Password:<input name="ps" type="password"><br />
+				<input  type="submit" value="submit">
+			</form>
+		<h3> or create an account </h3>
+			<button type="button" id="createshow" onclick="createshow()">Click Here</button>
+			<form method="post" id="createform" style="display:none" action="{% url 'store.views.shoppingcart' %}">
+				<input type="hidden" name="action" value="create">
+				Please choose a: <br />
+				Username:<input name="username" type="text"><br />
+				Password:<input name="ps" type="password"><br />
+				<hr/>
+				Now enter your shipping details: (all fields are required)
+				<input name="name" type="text"><br />
+				<input name="address" type="text"><br />
+				<input name="city" type="text"><br />
+				<input name="state" type="text"><br />
+				<input name="zip_code" type="text"><br />
+				<input name="phone" type="text"><br />
+				<input name="email" type="text"><br />
+				<input  type="submit" value="submit">
+			</form>
 		</div>
 
 {%endblock %}
