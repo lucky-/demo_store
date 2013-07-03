@@ -5,7 +5,11 @@
 {%block inner_head%}
 <script>
 function addcart(x){
-$.get('{%url "store.views.ajaxadd"%}',{item_pk:x}, function(data){alert(data[0])})
+$.get('{%url "store.views.ajaxadd"%}',{item_pk:x}, function(data){
+alert(data[0]);
+$('#itemquant').html(data[1]);
+$('#cancheckout').show();
+})
 }
 </script>
 

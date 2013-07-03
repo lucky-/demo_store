@@ -1,5 +1,7 @@
+{% if show_cart %}
 <div>
 <h3>Shopping Cart</h3>
-<p> Items: {{cart_items}}</p>
-<a href="#">Checkout</a>
+<p> Items: <span id="itemquant">{{cart_items}}</span></p>
+<a id="cancheckout" {%if not cart_items %}style="display:none"{%endif%} href="{% url 'store.views.shoppingcart' %}">Checkout</a>
 </div>
+{% endif %}

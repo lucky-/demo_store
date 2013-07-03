@@ -1,0 +1,45 @@
+{% extends merchant_base %}
+
+{%block title%}Cart{% endblock%}
+
+{%block inner_head%}
+<script>
+function show_form(){
+$('.stage1').hide();
+$('.stage2').show();
+}
+</script>
+<script>
+function cart_clear(){
+window.location = '{% url 'store.views.clearcart' %}'
+}
+</script>
+
+
+{% endblock %}
+
+
+
+{%block inner_body%}
+		{% for item in items %}
+		<div class="stage1">
+		<h2>{{item.name}}</h2>
+		<img src="{{item.picture.url}}" style="height:400px; width:400px"><br/>
+		<h3>Price : ${{item.price}}
+
+		</div>
+		{% endfor %}
+		<hr />
+		<div >
+			<h3>Subtotal: ${{base_price}}</h3>
+			<h3>Shipping: ${{shipping}}</h3>
+			<h3>Total: ${{total}}</h3>
+		</div>
+		<div>
+		<button onclick="show_form()">Buy Now</button> <button onclick="cart_clear()">Clear Cart</button>
+		</div>
+		<div class="stage2" style="display:none">
+		<h1>Hello</h1>
+		</div>
+
+{%endblock %}
