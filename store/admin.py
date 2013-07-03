@@ -7,9 +7,8 @@ from django.db.models import Q
 
 
 
-class buyerInline(admin.TabularInline):
-	model = models.buyer_data
-	exclude = ('user',)
+class ordersInline(admin.TabularInline):
+	model = models.orders
 	
 
 
@@ -29,15 +28,15 @@ class itemsAdmin(admin.ModelAdmin):
 		return local_set.filter(merchant=request.user.groups.all()[0])
 admin.site.register(models.items, itemsAdmin)
 
-class ordersAdmin(admin.ModelAdmin):
+class buyerAdmin(admin.ModelAdmin):
 	inlines = [
-        buyerInline,
+        ordersInline,
     ]
-	exclude = ('merchant',)
+	exclude = ('merchant', 'user')
 	def queryset(self, request):
-		local_set = super(ordersAdmin, self).queryset(request)
+		local_set = super(buyerAdmin, self).queryset(request)
 		if request.user.is_superuser:
 		    return local_set
-		return local_set.filter(Q(merchant=request.user.groups.all()[0]) & Q(paid=True))
-admin.site.register(models.orders, ordersAdmin)
+		return local_set.filter(Q(merchant=request.user.groups.all()[0]))
+admin.site.register(models.buyer_data, buyerAdmin)
 

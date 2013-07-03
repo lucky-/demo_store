@@ -21,20 +21,11 @@ class items(models.Model):
 
 
 
-class orders(models.Model):
-	paid = models.BooleanField()
-	date = models.DateTimeField()
-	merchant = models.ForeignKey(Group)
-	items = models.ManyToManyField(items)
-	total = models.DecimalField(max_digits=8, decimal_places=2)
-	shipped = models.BooleanField()
-	ship_date = models.DateTimeField()
-	tracking = models.CharField(max_length=50, default='-none-')
-	def __unicode__(self):
-		return self.date.strftime('%Y-%m-%d') + '_shipped=' + str(self.shipped)
+
 
 
 class buyer_data(models.Model):
+	merchant = models.ForeignKey(Group)
 	user = models.ForeignKey(User)
 	name = models.CharField(max_length=50)
 	address = models.CharField(max_length=100)
@@ -43,7 +34,20 @@ class buyer_data(models.Model):
 	zip_code=models.CharField(max_length=30)
 	phone = models.CharField(max_length=30)
 	email = models.EmailField()
-	orders = models.ForeignKey(orders)
+
+
+
+class orders(models.Model):
+	paid = models.BooleanField()
+	date = models.DateTimeField()
+	items = models.ManyToManyField(items)
+	total = models.DecimalField(max_digits=8, decimal_places=2)
+	shipped = models.BooleanField()
+	ship_date = models.DateTimeField()
+	tracking = models.CharField(max_length=50, default='-none-')
+	buyer_data = models.ForeignKey(buyer_data)
+	def __unicode__(self):
+		return self.date.strftime('%Y-%m-%d') + '_shipped=' + str(self.shipped)
 
 
 
