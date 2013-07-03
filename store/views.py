@@ -24,6 +24,9 @@ def store_front(request,merchant):
 	return render_to_response('store/front.html', dict(for_sale = for_sale, merchant_base = 'customized/{0}_base.html'.format(merchant), merchant=merchant, cart_items = cart_items, show_cart=True), context_instance=RequestContext(request))
 
 
+def error_page(request, e_message):
+	return render_to_response('store/error_page.html', dict(e_message=e_message, merchant_base = 'customized/{0}_base.html'.format(merchant)), context_instance=RequestContext(request))
+
 def item(request, item_id):
 	merchant = request.session['merchant']
 	item = models.items.objects.get(pk=item_id)
@@ -51,11 +54,15 @@ def shoppingcart(request):
 	merchant = request.session['merchant']
 	#check if order has already been created
 	if 'the_order' in request.session.keys():
-		pass
+		return redirect('store.views.cart2' )
 	if request.method=='POST':
-		
-		the_order = models.order(paid=False, date = datetime.datetime.now(), merchant =Group.objects.get(name=merchant),) 
-		
+		the_order = models.orders(paid=False, date = datetime.datetime.now(), merchant=Group.objects.get(name=merchant), total=request.session['total'], shipped=False, ship_date=datetime.datetime.now() )
+		the_order.save()
+		for item in request.session['cart']:
+			the_order.items.add(item) 
+		the_order.save()
+		request.session['the_order']=the_order
+		#if user already exists
 		if request.POST['post_method']=='login':
 			user = authenticate(username=request.POST['username'], password=request.POST['pw'])
 			if user is not None:
@@ -63,6 +70,7 @@ def shoppingcart(request):
 			else:	
 				e_message = 'Incorrect user name or password'
 				return 	redirect('store.views.error_page', e_message )
+		# for new users
 		else:
 			try:
 				user = 	User.objects.create_user(request.POST['username'], '', request.POST['pw'])
@@ -80,7 +88,8 @@ def shoppingcart(request):
 				kwargs[field] = request.POST[field]
 			buyer = models.buyer_data(**kwargs) 
 			buyer.save()
-		return something.s
+		request.session['buyer'] = buyer
+		return redirect('store.views.cart2' )
 	
 	else:
 		items = request.session['cart']
@@ -98,12 +107,16 @@ def clearcart(request):
 	merchant = request.session['merchant']
 	request.session.flush()
 	return redirect('store.views.store_front', merchant )
+
+
+
 		
 
-
-
-
-	
+def cart2(request):
+	if request.method=='POST':
+		pass
+	else:
+		return render_to_response('store/cart2.html', dict(order=request.session['the_order'], buyer=request.session['buyer'], merchant_base = 'customized/{0}_base.html'.format(merchant)), context_instance=RequestContext(request))
 
 
 

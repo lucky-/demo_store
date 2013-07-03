@@ -1,0 +1,18 @@
+{% extends merchant_base %}
+
+{%block title%}Error{% endblock%}
+
+
+
+{%block inner_body%}
+	{% for item in for_sale %}
+		<div>
+		<h2>Problem:</h2>
+		<p>{{e_message}}</p>
+		<br />
+		<p>Please click back</p>
+
+		</div>
+
+	{% endfor %}
+{%endblock %}
