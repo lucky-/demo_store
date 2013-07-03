@@ -13,6 +13,7 @@ from django.contrib.auth import authenticate
 from decimal import *
 import datetime
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 
 
 def store_front(request, merchant):
@@ -119,10 +120,7 @@ def clearcart(request):
 
 def cart2(request):
 	merchant = request.session['merchant']
-	if request.method=='POST':
-		pass
-	else:
-		return render_to_response('store/cart2.html', dict(merchant=merchant, order=request.session['the_order'], buyer=request.session['buyer'], merchant_base = 'customized/{0}_base.html'.format(merchant)), context_instance=RequestContext(request))
+	return render_to_response('store/cart2.html', dict(merchant=merchant, order=request.session['the_order'], buyer=request.session['buyer'], merchant_base = 'customized/{0}_base.html'.format(merchant)), context_instance=RequestContext(request))
 
 
 def purchased(request):
@@ -132,6 +130,15 @@ def purchased(request):
 	the_order.save()
 	request.session.flush()
 	return render_to_response('store/purchased.html', dict(merchant=merchant, merchant_base = 'customized/{0}_base.html'.format(merchant)), context_instance=RequestContext(request))
+
+
+
+@login_required
+def view_orders(request):
+	the_user = request.user
+	orders = models.orders.objects.filter(Q(buyer_data__user=the_user) & Q(paid=True))
+	return render_to_response('store/view_orders.html', dict(merchant=merchant, merchant_base = 'customized/{0}_base.html'.format(merchant), orders=orders), context_instance=RequestContext(request))
+	
 
 
 

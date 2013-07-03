@@ -1,0 +1,21 @@
+{% extends merchant_base %}
+
+{%block title%}View Orders{% endblock%}
+
+
+
+{%block inner_body%}
+	<h1>You can view the status of your orders below</h1>
+	{% for order in orders %}
+		<div>
+			<h2>Order on {{ order.date|date:"y/M/d" }}</h2>
+			{% if order.shipped %}
+				<h4>Shipped on {{ order.ship_date|date:"y/M/d" }}</h4>
+				<h4>Tracking Number: {{order.tracking}} </h4>
+			{% else %}
+				<h4>Order is awaiting shipment</h4>
+			{% endif %}
+		</div>
+	{% endfor %}
+	
+{%endblock %}
