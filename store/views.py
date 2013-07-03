@@ -27,18 +27,16 @@ def store_front(request, merchant):
 
 
 def error_page(request):
-	merchant = request.session['merchant']
-	return render_to_response('store/error_page.html', dict(e_message=request.session['e_message'], merchant_base = 'customized/{0}_base.html'.format(merchant), merchant=merchant), context_instance=RequestContext(request))
+	return render_to_response('store/error_page.html', dict(e_message=request.session['e_message']), context_instance=RequestContext(request))
 
 
 def item(request, item_id):
-	merchant = request.session['merchant']
 	item = models.items.objects.get(pk=item_id)
 	if 'cart' in request.session.keys():
 		cart_items = len(request.session['cart'])
 	else:
 		cart_items = 0
-	return render_to_response('store/item.html', dict(item=item, merchant_base = 'customized/{0}_base.html'.format(merchant), merchant=merchant, cart_items = cart_items, show_cart=True), context_instance=RequestContext(request))
+	return render_to_response('store/item.html', dict(item=item, cart_items = cart_items, show_cart=True), context_instance=RequestContext(request))
 
 
 def ajaxadd(request):
@@ -106,7 +104,7 @@ def shoppingcart(request):
 			base_price += item.price
 		total = shipping + base_price
 		request.session['total']=total
-		return render_to_response('store/cart.html', dict(items=items, merchant_base = 'customized/{0}_base.html'.format(merchant), merchant=merchant, shipping = shipping, base_price = base_price, total=total), context_instance=RequestContext(request))
+		return render_to_response('store/cart.html', dict(items=items, shipping = shipping, base_price = base_price, total=total), context_instance=RequestContext(request))
 
 
 def clearcart(request):
@@ -119,17 +117,18 @@ def clearcart(request):
 		
 
 def cart2(request):
-	merchant = request.session['merchant']
-	return render_to_response('store/cart2.html', dict(merchant=merchant, order=request.session['the_order'], buyer=request.session['buyer'], merchant_base = 'customized/{0}_base.html'.format(merchant)), context_instance=RequestContext(request))
+	
+	return render_to_response('store/cart2.html', dict( order=request.session['the_order'], buyer=request.session['buyer'], ), context_instance=RequestContext(request))
 
 
 def purchased(request):
-	merchant = request.session['merchant']
 	the_order = request.session['the_order']
 	the_order.paid = True
 	the_order.save()
+	merchant = request.session['merchant']
 	request.session.flush()
-	return render_to_response('store/purchased.html', dict(merchant=merchant, merchant_base = 'customized/{0}_base.html'.format(merchant)), context_instance=RequestContext(request))
+	request.session['merchant'] = merchant
+	return render_to_response('store/purchased.html', dict(), context_instance=RequestContext(request))
 
 
 
@@ -137,7 +136,7 @@ def purchased(request):
 def view_orders(request):
 	the_user = request.user
 	orders = models.orders.objects.filter(Q(buyer_data__user=the_user) & Q(paid=True))
-	return render_to_response('store/view_orders.html', dict(merchant=merchant, merchant_base = 'customized/{0}_base.html'.format(merchant), orders=orders), context_instance=RequestContext(request))
+	return render_to_response('store/view_orders.html', dict( orders=orders), context_instance=RequestContext(request))
 	
 
 

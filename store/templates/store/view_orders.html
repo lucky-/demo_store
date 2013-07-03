@@ -7,6 +7,8 @@
 {%block inner_body%}
 	<h1>You can view the status of your orders below</h1>
 	{% for order in orders %}
+		<br />
+		<hr />
 		<div>
 			<h2>Order on {{ order.date|date:"y/M/d" }}</h2>
 			{% if order.shipped %}
