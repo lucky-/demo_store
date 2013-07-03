@@ -1,6 +1,6 @@
 {% extends merchant_base %}
 
-{%block title%}Error{% endblock%}
+{%block title%}Final Purchase{% endblock%}
 
 
 
@@ -16,6 +16,6 @@
 	<hr />
 	<h2>Order Total: {{order.total}}</h2>
 	<br />
-	<button>Buy</button> <button>Cancel</button>
+	<h1><a href="{% url 'store.views.purchased' %}">Buy</a> <a href="{% url 'store.views.clearcart' %}">Cancel</a></h1>
 	
 {%endblock %}

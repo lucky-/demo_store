@@ -6,6 +6,7 @@
 <script>
 function show_form(){
 $('.stage1').hide();
+$('#buybutton').hide();
 $('.stage2').show();
 }
 </script>
@@ -46,7 +47,7 @@ $('#loginform').show();
 			<h3>Total: ${{total}}</h3>
 		</div>
 		<div>
-		<button onclick="show_form()">Buy Now</button> <button onclick="cart_clear()">Clear Cart</button>
+		<button id="buybutton" onclick="show_form()">Buy Now</button> <button onclick="cart_clear()">Clear Cart</button>
 		</div>
 		<div class="stage2" style="display:none">
 		<h3>Login</h3>

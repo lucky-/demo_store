@@ -125,5 +125,14 @@ def cart2(request):
 		return render_to_response('store/cart2.html', dict(merchant=merchant, order=request.session['the_order'], buyer=request.session['buyer'], merchant_base = 'customized/{0}_base.html'.format(merchant)), context_instance=RequestContext(request))
 
 
+def purchased(request):
+	merchant = request.session['merchant']
+	the_order = request.session['the_order']
+	the_order.paid = True
+	the_order.save()
+	request.session.flush()
+	return render_to_response('store/purchased.html', dict(merchant=merchant, merchant_base = 'customized/{0}_base.html'.format(merchant)), context_instance=RequestContext(request))
+
+
 
 	
