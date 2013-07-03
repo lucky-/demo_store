@@ -125,6 +125,13 @@ def purchased(request):
 	the_order = request.session['the_order']
 	the_order.paid = True
 	the_order.save()
+	the_buyer = the_order.buyer_data
+	the_buyer.hide = False
+	the_buyer.save()
+	for item in the_order.items.all():
+		if item.stock > 0:
+			item.stock -= 1
+			item.save() 
 	merchant = request.session['merchant']
 	request.session.flush()
 	request.session['merchant'] = merchant

@@ -34,6 +34,9 @@ class buyer_data(models.Model):
 	zip_code=models.CharField(max_length=30)
 	phone = models.CharField(max_length=30)
 	email = models.EmailField()
+	hide = models.BooleanField(default=True)
+	def __unicode__(self):
+		return self.name + '_' + self.email
 
 
 
