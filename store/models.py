@@ -17,7 +17,8 @@ class items(models.Model):
 	picture = models.FileField(upload_to='images')
 	#marginal shipping
 	m_shipping = models.DecimalField(max_digits=8, decimal_places=2)
-	
+	def __unicode__(self):
+		return self.name + '_stock:' + str(self.stock)
 
 
 

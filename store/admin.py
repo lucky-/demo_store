@@ -17,7 +17,7 @@ class ordersInline(admin.TabularInline):
 
 
 class itemsAdmin(admin.ModelAdmin):
-	list_display = ('name', 'price')
+	search_fields = ['name', 'description', 'stock']
 	def get_form(self, request, obj=None, **kwargs):
 		form = super(itemsAdmin, self).get_form(request, obj, **kwargs)
 		if not request.user.is_superuser:
@@ -37,6 +37,7 @@ class buyerAdmin(admin.ModelAdmin):
         ordersInline,
     ]
 	exclude = ('merchant', 'user')
+	search_fields = ['email', 'name']
 	def queryset(self, request):
 		local_set = super(buyerAdmin, self).queryset(request)
 		if request.user.is_superuser:
