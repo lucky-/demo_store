@@ -1,0 +1,150 @@
+{% extends 'store/base.html' %}
+
+
+{%block outer_head %}
+<link rel="stylesheet" href="{{ STATIC_URL }}Bookstore/images/MarketPlace.css" type="text/css" />
+{%block inner_head%}{% endblock %}
+{%endblock%}
+
+
+
+{%block outer_body %}
+<body>
+
+<!-- wrap starts here -->
+<div id="wrap">
+
+	<!--header -->
+	<div id="header">			
+				
+		<div id="header-links">
+		<p>
+			<a href="#">Home</a> | 
+			<a href="#">Contact</a> | 
+			<a href="#">Site Map</a>			
+		</p>		
+		</div>		
+		
+	<!--header ends-->					
+	</div>
+		
+	<div id="header-photo">
+	
+		<h1 id="logo-text"><a href="#" title="">{%block title%}{% endblock %}</a></h1>		
+			
+			
+	</div>		
+			
+	<!-- navigation starts-->	
+	<div  id="nav">
+		<div width="600px">
+			<div>{% include 'store/navdiv.html' %}</div>
+			<div style="margin-left:400px">{% include 'store/cartdiv.html' %}</div>
+		</div>
+	</div>
+	<!-- navigation ends-->	
+	</div>					
+			
+	<!-- content-wrap starts -->
+	<div id="content-wrap" class="three-col"  >	
+	
+		<div id="sidebar">
+			
+			<h1>Search Box</h1>	
+			<form action="#" class="searchform">
+				<p>
+				<input name="search_query" class="textbox" type="text" />
+  				<input name="search" class="button" value="Search" type="submit" />
+				</p>			
+			</form>	
+					
+			<h1>Sidebar Menu</h1>
+			<ul class="sidemenu">				
+				<li><a href="#">Home</a></li>
+				<li><a href="#TemplateInfo">Template Info</a></li>
+				<li><a href="#SampleTags">Sample Tags</a></li>
+				<li><a href="http://www.styleshout.com/">More Free Templates</a></li>	
+				<li><a href="http://www.4templates.com/?aff=ealigam">Premium Templates</a></li>	
+			</ul>	
+				
+			<h1>Links</h1>
+			<ul class="sidemenu">
+				<li><a href="http://www.pdphoto.org/">PDPhoto.org</a></li>
+				<li><a href="http://www.squidfingers.com/patterns/">Squidfingers | Patterns</a></li>
+				<li><a href="http://www.alistapart.com">Alistapart</a></li>					
+				<li><a href="http://www.cssmania.com">CSS Mania</a></li>
+				<li><a href="http://www.dark-i.com/">Dark Eye</a></li>
+			</ul>
+			
+			<h1>Sponsors</h1>
+			<ul class="sidemenu">
+				<li><a href="http://www.4templates.com/?aff=ealigam">4templates</a></li>
+				<li><a href="http://store.templatemonster.com?aff=ealigam">TemplateMonster</a></li>
+				<li><a href="http://www.fotolia.com/partner/114283">Fotolia.com</a></li>
+				<li><a href="http://www.dreamstime.com/res338619">Dreamstime.com</a></li>
+				<li><a href="http://www.dreamhost.com/r.cgi?287326">Dreamhost.com</a></li>
+			</ul>
+			
+			<h1>Wise Words</h1>
+			<p>&quot;We are what we repeatedly do. Excellence, then, 
+			is not an act, but a habit.&quot; </p>
+					
+			<p class="align-right">- Aristotle</p>
+					
+		<!-- sidebar ends -->		
+		</div>
+		
+		<div id="rightcolumn">
+		
+			<h1>Support Styleshout</h1>
+			<p>If you are interested in supporting my work and would like to contribute, you are
+			welcome to make a small donation through the 
+			<a href="http://www.styleshout.com/">donate link</a> on my website - it will 
+			be a great help and will surely be appreciated.</p>
+			
+			<h1>Header Text</h1>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. 
+			Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu 
+			posuere nunc justo tempus leo. Donec mattis, purus nec placerat bibendum, dui pede condimentum 
+			odio, ac blandit ante orci ut diam. Cras fringilla magna. Phasellus suscipit, leo a pharetra 
+			condimentum, lorem tellus eleifend magna, eget fringilla velit magna id neque. Curabitur vel urna. 
+			In tristique orci porttitor ipsum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec libero. Suspendisse bibendum. 
+			Cras id urna. Morbi tincidunt, orci ac convallis aliquam, lectus turpis varius lorem, eu 
+			posuere nunc justo tempus leo. </p>				
+					
+		</div>
+		
+		
+		<div id="main">
+				
+			{% block inner_body %}{% endblock %}			
+				
+		</div>
+		
+	<!-- content-wrap ends-->	
+	</div>
+		
+	<!-- footer starts -->			
+	<div id="footer-wrap"><div id="footer">				
+			
+			<p>
+			&copy; 2006 <strong>Your Company</strong> | 
+			Design by: <a href="http://www.styleshout.com/">styleshout</a> | 
+			Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a> | 
+			<a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>
+			
+   		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			
+			<a href="#">Home</a>&nbsp;|&nbsp;
+   		<a href="#">Sitemap</a>&nbsp;|&nbsp;
+	   	<a href="#">RSS Feed</a>
+			</p>		
+			
+	</div></div>
+	<!-- footer ends-->	
+	
+<!-- wrap ends here -->
+</div>
+
+</body>
+{% endblock %}
