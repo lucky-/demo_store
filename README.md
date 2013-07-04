@@ -22,7 +22,7 @@ If you would also like to use the sample templates and data, please put the samp
 
 
 
-The sample data contails 3 stores with REALLLY bad front end templates. The urls for them are '/store/Bookstore', '/store/Treestore/', and '/store/Shoestore/'  Additionally, a superuser exists username:happy.  three staff users exist book_master, tree_master, and shoe_master.  The password for all accounts is happy1.  
+The sample data contails 3 stores with REALLLY bad front end templates(only look at the main div and checkout link at top.  the other stuff is just from some free templates and is all junk). The urls for them are '/store/Bookstore', '/store/Treestore/', and '/store/Shoestore/'  Additionally, a superuser exists username:happy.  three staff users exist book_master, tree_master, and shoe_master.  The password for all accounts is happy1.  
 
 
 
