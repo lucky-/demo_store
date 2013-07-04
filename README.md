@@ -26,3 +26,14 @@ The sample data contails 3 stores with REALLLY bad front end templates. The urls
 
 
 
+Customizing
+========
+Stores are based on Groups.  A new group represents a new store.
+The group must be given all privilages pertaining to store models.
+
+
+Customized templates should go in the customized folder inside templates.  They should have the name of the group + '_base.html'
+Template parent structure can be seen in the samples.
+
+
+
