@@ -3,6 +3,5 @@ manage.py
 *.pyc
 *.py~
 tester/
-sampledata/
 *.html~
 *.md~

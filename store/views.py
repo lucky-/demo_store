@@ -17,6 +17,9 @@ from django.contrib.auth.decorators import login_required
 
 
 def store_front(request, merchant):
+	if 'merchant' in request.session.keys():
+		if request.session['merchant'] != merchant:
+			request.session.flush()
 	request.session['merchant']=merchant
 	for_sale = models.items.objects.filter(Q(merchant__name__exact = merchant) & ~Q(stock=0))
 	if 'cart' in request.session.keys():
