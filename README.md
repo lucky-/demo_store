@@ -7,7 +7,7 @@ Download the 'store' app.  Put it in your project folder.  Add it to installed a
 
 To use the demo store, the following is required:
 1)sessions must be enabled
-2)(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'myapp/login.html'}) must be put in the site level URLS
+2)(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'store/login_page.html'}), must be put in the site level URLS
 3)(r'^store/', include('store.urls')) must be put in the site level URLS
 5)"store.store_context.merchant" must be added to your list of template context processors
 
